@@ -20,10 +20,10 @@ class RunResult:
 
 
 class Agent:
-    def __init__(self, cwd: str = ".", project: str = "default") -> None:
+    def __init__(self, cwd: str = ".", project: str = "default", session: dict | None = None) -> None:
         self.cwd = cwd
         self.harness = Harness(project=project)
-        self.session = daemon.start_session(project=project)
+        self.session = session or daemon.start_session(project=project, cwd=cwd)
 
     def run(self, code_or_prompt: str) -> RunResult:
         """Execute control program or natural language task."""

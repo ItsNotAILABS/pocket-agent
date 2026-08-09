@@ -36,7 +36,24 @@ POCKET Agent **implements those abstractions** and adds host-grade systems Prime
 4. **Isolation is first-class** — capsules for untrusted/eval/GPU/guest code.  
 5. **Paper-first economics** — no silent live custody.
 
+## CLI parity (Prime-compatible muscle memory)
+
+| Prime | POCKET Agent |
+|-------|----------------|
+| `curl …/install.sh \| sh` | `install.sh` / `install.ps1` |
+| `prime-agent` in project dir | `pocket-agent` (alias `prime-agent` from installer) |
+| `/login` | `/login` |
+| `agents` / `attach` / `--resume` | same |
+| `status` / `doctor` / `update` / `shutdown` | same |
+| goals / heartbeat / schedule / autonomous | `/goal` `/heartbeat` `schedule` `/autonomous` |
+| — | `capsule reasons\|spin` · auto-RAH |
+
+## Trust model (same warning, better isolation path)
+
+Prime warns: worker/kernel isolation is **not** a security sandbox.  
+We ship the **same warning** and a concrete fix path: **WASM multi-sandbox capsules** with 20 agent reasons (`untrusted_eval`, `sandbox_tests`, …).
+
 ## One-liner
 
-> Prime Agent: excellent RLM REPL agent.  
-> **POCKET Agent: RLM + continual harness + RAH + WASM capsules + host economy — a product control plane for long-running agent work.**
+> Prime Agent: excellent MIT RLM + continual harness agent.  
+> **POCKET Agent: same long-running surface + RAH + WASM capsules + optional POCKET host economy — still MIT for the agent package.**

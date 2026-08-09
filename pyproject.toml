@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "POCKET Agent — RLM + continual harness + RAH + WASM capsules (beats single-REPL agents)"
 readme = "README.md"
 requires-python = ">=3.11"
-license = { text = "LicenseRef-Researcher" }
+license = { text = "MIT" }
 authors = [{ name = "ItsNotAI Labs" }]
 keywords = ["agent", "rlm", "rah", "wasm", "capsule", "pocket", "harness"]
 dependencies = []
