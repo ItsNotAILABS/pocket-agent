@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pocket-agent"
+version = "0.1.0"
+description = "POCKET Agent — RLM + continual harness + RAH + WASM capsules (beats single-REPL agents)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "LicenseRef-Researcher" }
+authors = [{ name = "ItsNotAI Labs" }]
+keywords = ["agent", "rlm", "rah", "wasm", "capsule", "pocket", "harness"]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+host = []  # use pocket-os on PYTHONPATH for full host
+
+[project.scripts]
+pocket-agent = "pocket_agent.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
