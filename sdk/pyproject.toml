@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pocket-sdk"
+version = "0.2.0"
+description = "POCKET HTTP SDK — plug-n-play client for AI agents"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = []
+
+[project.scripts]
+pocket-sdk = "pocket_sdk.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pocket_sdk*"]

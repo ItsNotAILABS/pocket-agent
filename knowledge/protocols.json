@@ -1,0 +1,33 @@
+{
+  "schema": "pocket.knowledge.protocols.v1",
+  "major": [
+    "mesh",
+    "mcp-colony",
+    "bearer-session",
+    "job-session",
+    "phone-pair",
+    "voice-fusion",
+    "loomgraph",
+    "capsule",
+    "host-os",
+    "hz-mesh",
+    "rah",
+    "economy"
+  ],
+  "economic": [
+    "pock-ledger",
+    "wallet",
+    "twin-wallet",
+    "escrow",
+    "clearing",
+    "settlement",
+    "parallax-bridge",
+    "fee-schedule"
+  ],
+  "apis": {
+    "catalog": "GET /v1/protocols",
+    "status": "GET /v1/protocols/status",
+    "rah": "GET /v1/protocols/rah",
+    "economy": "GET /v1/economy/protocols"
+  }
+}

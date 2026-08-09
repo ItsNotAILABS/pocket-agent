@@ -15,6 +15,20 @@ curl -fsSL https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/inst
 
 The installer clones/updates the repo, installs the `pocket-agent` command (and a `prime-agent` alias), and prepares runtime dirs under `~/.pocket/agent/`.
 
+### More one-line slices (SDK · skills · knowledge · plug-n-play)
+
+| Slice | macOS / Linux | Windows |
+|-------|----------------|---------|
+| **Agent** | `curl -fsSL …/install.sh \| sh` | `irm …/install.ps1 \| iex` |
+| **SDK** | `curl -fsSL …/install/sdk.sh \| sh` | `irm …/install/sdk.ps1 \| iex` |
+| **Skills** | `curl -fsSL …/install/skills.sh \| sh` | `irm …/install/skills.ps1 \| iex` |
+| **Knowledge** | `curl -fsSL …/install/knowledge.sh \| sh` | `irm …/install/knowledge.ps1 \| iex` |
+| **Capsules** | `curl -fsSL …/install/capsules.sh \| sh` | `irm …/install/capsules.ps1 \| iex` |
+| **Plug-n-play all** | `curl -fsSL …/install/plug.sh \| sh` | `irm …/install/plug.ps1 \| iex` |
+
+Full URLs and JSON catalog: **[install/README.md](./install/README.md)** · `install/slices.json`  
+Live host hub (when serve is up): **http://127.0.0.1:8787/install**
+
 ---
 
 ## Start

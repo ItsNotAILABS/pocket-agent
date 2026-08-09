@@ -1,0 +1,19 @@
+{
+  "schema": "pocket.knowledge.api.v1",
+  "base": "http://127.0.0.1:8787",
+  "auth": {
+    "login": "POST /v1/auth/login",
+    "headers": ["Authorization: Bearer <token>", "X-Pocket-Token: <token>"]
+  },
+  "resources": {
+    "health": "GET /health",
+    "identity": "GET /v1/identity",
+    "sessions": "POST /v1/sessions",
+    "messages": "POST /v1/sessions/{id}/messages",
+    "skills": "POST /v1/skills/run",
+    "protocols": "GET /v1/protocols",
+    "rah_run": "POST /v1/rah/run",
+    "economy": "GET /v1/economy",
+    "ai_chat": "POST /v1/ai/chat"
+  }
+}

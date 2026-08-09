@@ -1,0 +1,74 @@
+{
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "pocket_health",
+        "description": "Check POCKET host health",
+        "parameters": { "type": "object", "properties": {} }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "pocket_send_message",
+        "description": "Send a message in a POCKET desk session",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "session_id": { "type": "string" },
+            "text": { "type": "string" },
+            "mode": { "type": "string", "description": "session mode e.g. plan, codex, rah" }
+          },
+          "required": ["text"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "pocket_skill_run",
+        "description": "Run a POCKET platform skill (platform_map, rah_run, capsule_allocate, economy_map, ...)",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "skill": { "type": "string" },
+            "prompt": { "type": "string" },
+            "params": { "type": "object" }
+          },
+          "required": ["skill"]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "pocket_capsule_spin",
+        "description": "Spin a WASM multi-sandbox capsule with a reason id from the 20 reasons catalog",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "reason": { "type": "string" },
+            "tier": { "type": "string" },
+            "webgpu": { "type": "boolean" }
+          }
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "pocket_rah_run",
+        "description": "Run Recursive Agent Harnesses for large independent parallel tasks",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "task": { "type": "string" },
+            "max_leaves": { "type": "integer" }
+          },
+          "required": ["task"]
+        }
+      }
+    }
+  ]
+}

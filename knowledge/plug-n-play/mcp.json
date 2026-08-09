@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "pocket": {
+      "description": "POCKET host via HTTP (set POCKET_URL). Prefer SDK or skills when MCP bridge not loaded.",
+      "url": "${POCKET_URL:-http://127.0.0.1:8787}",
+      "headers": {
+        "Authorization": "Bearer ${POCKET_TOKEN}"
+      },
+      "notes": [
+        "Install: curl -fsSL https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/install/plug.sh | sh",
+        "Python: from pocket_sdk import Pocket",
+        "Skills: ~/.pocket/skills/catalog.json"
+      ]
+    }
+  }
+}

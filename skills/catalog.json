@@ -1,0 +1,29 @@
+{
+  "schema": "pocket.skills.catalog.v1",
+  "product": "POCKET",
+  "install": {
+    "sh": "curl -fsSL https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/install/skills.sh | sh",
+    "ps1": "irm https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/install/skills.ps1 | iex"
+  },
+  "host_run": "POST /v1/skills/run {\"skill\":\"<id>\",\"prompt\":\"...\",\"params\":{}}",
+  "skills": [
+    {"id": "platform_map", "desc": "Full coherent POCKET platform map", "tags": ["discover"]},
+    {"id": "pocket_identity", "desc": "Who the agent is (POCKET host agent)", "tags": ["identity"]},
+    {"id": "protocols_map", "desc": "Major protocol catalog", "tags": ["protocols"]},
+    {"id": "protocols_status", "desc": "Protocol health", "tags": ["protocols"]},
+    {"id": "rah_plan", "desc": "Preview Recursive Agent Harness fan-out", "tags": ["rah"]},
+    {"id": "rah_run", "desc": "Execute RAH (expensive parallel harnesses)", "tags": ["rah"]},
+    {"id": "rah_status", "desc": "RAH runs status", "tags": ["rah"]},
+    {"id": "capsule_reasons", "desc": "20 reasons to spin WASM capsules", "tags": ["capsule"]},
+    {"id": "capsule_allocate", "desc": "Spin multi-sandbox WASM capsule", "tags": ["capsule"]},
+    {"id": "capsule_execute", "desc": "Run command inside capsule", "tags": ["capsule"]},
+    {"id": "capsule_terminate", "desc": "Terminate capsule", "tags": ["capsule"]},
+    {"id": "webgpu_probe", "desc": "GPU/WebGPU readiness", "tags": ["capsule", "gpu"]},
+    {"id": "economy_map", "desc": "Wallets, twin wallets, escrow, clearing", "tags": ["economy"]},
+    {"id": "economy_twins", "desc": "List digital twin wallets", "tags": ["economy"]},
+    {"id": "list_agents", "desc": "First-class desk/phone agents", "tags": ["agents"]},
+    {"id": "habitat_status", "desc": "Habitat residents", "tags": ["habitat"]},
+    {"id": "loomgraph_run", "desc": "Run loomgraph campaign", "tags": ["orch"]},
+    {"id": "list_skills", "desc": "List skill catalog", "tags": ["discover"]}
+  ]
+}

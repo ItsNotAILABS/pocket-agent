@@ -1,0 +1,11 @@
+{
+  "schema": "agent.skills.manifest.v1",
+  "name": "pocket-plug-n-play",
+  "version": "0.2.0",
+  "install": "curl -fsSL https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/install/plug.sh | sh",
+  "skills_root": "skills/packages",
+  "catalog": "skills/catalog.json",
+  "knowledge": "knowledge/AGENTS.md",
+  "sdk": "sdk/",
+  "env": ["POCKET_URL", "POCKET_TOKEN", "POCKET_USER", "POCKET_PASSWORD"]
+}

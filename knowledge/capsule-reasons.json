@@ -1,0 +1,26 @@
+{
+  "schema": "pocket.capsule.reasons.v1",
+  "count": 20,
+  "reasons": [
+    {"id": "untrusted_eval", "improves": "Run untrusted code without host ambient authority"},
+    {"id": "sandbox_tests", "improves": "Isolated tests that cannot trash the workspace"},
+    {"id": "dependency_install", "improves": "Install packages that never leak into host env"},
+    {"id": "repo_mount_edit", "improves": "Edit in overlay; commit only on explicit approve"},
+    {"id": "wasm_guest_tool", "improves": "Portable .wasm tools with no ambient network"},
+    {"id": "webgpu_compute", "improves": "GPGPU/ML kernels via WebGPU doctrine"},
+    {"id": "parallel_slice", "improves": "Isolate one RAH leaf FS to avoid writer collisions"},
+    {"id": "adversarial_verify", "improves": "Throwaway environment for verifier/adversary"},
+    {"id": "repro_bug", "improves": "Clean env repro with logs; terminate when done"},
+    {"id": "secret_scrub", "improves": "Discard overlay if secrets appear in processing"},
+    {"id": "browser_worker", "improves": "DOM/WebGPU guest without polluting desk session"},
+    {"id": "build_artifact", "improves": "Compile in capsule; export only dist outputs"},
+    {"id": "fuzz_input", "improves": "Crash isolation for parsers and tools"},
+    {"id": "policy_eval", "improves": "Run policy scripts without mutating live ledgers"},
+    {"id": "skill_preview", "improves": "Try generated skills before durable promote"},
+    {"id": "third_party_cli", "improves": "Cap FS preopens for untrusted CLIs"},
+    {"id": "long_job_park", "improves": "Park long work in overlay between heartbeats"},
+    {"id": "multi_tenant_slice", "improves": "Soft isolation for seat/demo runs"},
+    {"id": "mesh_artifact_lab", "improves": "Produce artifacts offline; publish hash-only"},
+    {"id": "rollback_experiment", "improves": "Experiment freely; terminate = full rollback"}
+  ]
+}

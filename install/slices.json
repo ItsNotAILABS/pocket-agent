@@ -1,0 +1,73 @@
+{
+  "schema": "pocket.install.slices.v1",
+  "product": "POCKET",
+  "lab": "ItsNotAI Labs",
+  "base_url_hint": "https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main",
+  "host_url_hint": "https://pocket.medinatechlabs.net",
+  "warning": "Agent slices execute code with your user permissions. Use capsules for untrusted work.",
+  "slices": [
+    {
+      "id": "agent",
+      "name": "POCKET Agent (RLM + harness + RAH + capsules)",
+      "one_liner_sh": "curl -fsSL https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/install.sh | sh",
+      "one_liner_ps1": "irm https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/install.ps1 | iex",
+      "provides": ["pocket-agent CLI", "RLM REPL", "continual harness", "auto-RAH", "WASM capsules", "20 capsule reasons"],
+      "plug_n_play": true,
+      "for": "AI agents & developers who want a long-running coding agent"
+    },
+    {
+      "id": "sdk",
+      "name": "POCKET Python SDK (HTTP + agent plug-n-play)",
+      "one_liner_sh": "curl -fsSL https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/install/sdk.sh | sh",
+      "one_liner_ps1": "irm https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/install/sdk.ps1 | iex",
+      "provides": ["pocket_sdk package", "sessions/jobs/economy/rah/capsule clients", "OpenAI-shaped helpers"],
+      "plug_n_play": true,
+      "for": "Any AI agent or app talking to a POCKET host"
+    },
+    {
+      "id": "skills",
+      "name": "Skills pack (executable agent skills)",
+      "one_liner_sh": "curl -fsSL https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/install/skills.sh | sh",
+      "one_liner_ps1": "irm https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/install/skills.ps1 | iex",
+      "provides": ["skills/catalog.json", "SKILL.md packages", "capsule/rah/economy/platform skills"],
+      "plug_n_play": true,
+      "for": "Claude Code / Cursor / Grok / custom agents that load skills"
+    },
+    {
+      "id": "knowledge",
+      "name": "App knowledge (AGENTS.md + protocol map + API)",
+      "one_liner_sh": "curl -fsSL https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/install/knowledge.sh | sh",
+      "one_liner_ps1": "irm https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/install/knowledge.ps1 | iex",
+      "provides": ["AGENTS.md", "protocol catalog", "OpenAPI surface map", "capsule 20 reasons", "plug-n-play MCP hints"],
+      "plug_n_play": true,
+      "for": "Coding agents that need product knowledge in-repo"
+    },
+    {
+      "id": "capsules",
+      "name": "WASM capsules slice (reasons + spin helpers)",
+      "one_liner_sh": "curl -fsSL https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/install/capsules.sh | sh",
+      "one_liner_ps1": "irm https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/install/capsules.ps1 | iex",
+      "provides": ["20 capsule reasons", "capsule CLI", "PROTO-CAPSULE-WASM-009 notes"],
+      "plug_n_play": true,
+      "for": "Agents that need isolation / WebGPU / untrusted eval"
+    },
+    {
+      "id": "plug",
+      "name": "Agent plug-n-play bundle (all of the above lite)",
+      "one_liner_sh": "curl -fsSL https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/install/plug.sh | sh",
+      "one_liner_ps1": "irm https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/install/plug.ps1 | iex",
+      "provides": ["SDK", "skills", "knowledge", "agent CLI", "MCP/skill manifests"],
+      "plug_n_play": true,
+      "for": "Drop into a project so any AI agent can use POCKET immediately"
+    },
+    {
+      "id": "host",
+      "name": "POCKET host (full desk/phone — local clone)",
+      "one_liner_sh": "curl -fsSL https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/install/host.sh | sh",
+      "one_liner_ps1": "irm https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/install/host.ps1 | iex",
+      "provides": ["host runtime path notes", "serve command", "desk URL", "economy + protocols"],
+      "plug_n_play": false,
+      "for": "Operators running the full POCKET product on a PC"
+    }
+  ]
+}
