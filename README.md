@@ -24,10 +24,21 @@ The installer clones/updates the repo, installs the `pocket-agent` command (and 
 | **Skills** | `curl -fsSL …/install/skills.sh \| sh` | `irm …/install/skills.ps1 \| iex` |
 | **Knowledge** | `curl -fsSL …/install/knowledge.sh \| sh` | `irm …/install/knowledge.ps1 \| iex` |
 | **Capsules** | `curl -fsSL …/install/capsules.sh \| sh` | `irm …/install/capsules.ps1 \| iex` |
+| **Mail** | `curl -fsSL …/install/mail.sh \| sh` | `irm …/install/mail.ps1 \| iex` |
 | **Plug-n-play all** | `curl -fsSL …/install/plug.sh \| sh` | `irm …/install/plug.ps1 \| iex` |
+
+**Agent Mail** = our own `*@agents.pocket.local` accounts + inboxes (not Gmail). Host UI `/mail` · API `/v1/agent-mail/*`.
 
 Full URLs and JSON catalog: **[install/README.md](./install/README.md)** · `install/slices.json`  
 Live host hub (when serve is up): **http://127.0.0.1:8787/install**
+
+### Ecosystem (ItsNotAI Labs)
+
+| Repo | Role |
+|------|------|
+| [pocket](https://github.com/ItsNotAILABS/pocket) | Host · desk · phone · genetic · mail · MCP |
+| [pocket-agent](https://github.com/ItsNotAILABS/pocket-agent) | This CLI + install slices |
+| [pocket-voice-to-text](https://github.com/ItsNotAILABS/pocket-voice-to-text) | Sovereign voice STT/TTS/agents |
 
 ---
 
