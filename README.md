@@ -3,212 +3,189 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/ItsNotAILABS/pocket-agent"><img alt="version" src="https://img.shields.io/badge/version-0.2.0-10b981?style=flat-square"></a>
-  <a href="LICENSE"><img alt="license" src="https://img.shields.io/badge/license-MIT-3b82f6?style=flat-square"></a>
+  <img alt="version" src="https://img.shields.io/badge/version-0.2.0-10b981?style=flat-square">
   <img alt="python" src="https://img.shields.io/badge/python-3.11+-f59e0b?style=flat-square">
-  <img alt="status" src="https://img.shields.io/badge/status-public%20alpha-8b5cf6?style=flat-square">
+  <img alt="runtime" src="https://img.shields.io/badge/runtime-long--running-8b5cf6?style=flat-square">
+  <img alt="protocol" src="https://img.shields.io/badge/protocol-POCKET%20%2B%20NEXUS-2563eb?style=flat-square">
+  <a href="LICENSE"><img alt="license" src="https://img.shields.io/badge/license-MIT-3b82f6?style=flat-square"></a>
 </p>
 
 # POCKET Agent
 
-**A long-running coding and research agent that can leave the prompt, keep working, return, and continue.**
+**Long-running repository intelligence with durable goals, recursive workers, bounded execution and machine-verifiable receipts.**
 
-POCKET Agent is the open execution plane of the POCKET family. It combines a persistent **RLM control environment**, a **continual harness**, recursive full-agent fan-out (**RAH**), daemon-backed sessions, schedules, durable goals, and bounded **WASM capsules** for work that should not run directly in the main workspace.
+POCKET Agent is the execution plane of the POCKET family. It is built for jobs that should survive beyond one prompt: repository audits, implementation runs, scheduled maintenance, research loops, multi-worker decomposition and isolated execution.
 
-It is designed for repository-native work: inspect a codebase, hold a goal across turns, fan out difficult subproblems, execute tools, detach, re-enter on a schedule, and return with reviewable artifacts instead of losing the entire job when the chat window closes.
+```text
+Goal + repository
+      │
+      ▼
+Persistent Agent Harness
+      │
+      ├── RLM control state
+      ├── tools + project commands
+      ├── recursive agent harnesses (RAH)
+      ├── WASM capsules
+      ├── schedules / heartbeats
+      └── budgets + leases + retries + circuit breakers
+      │
+      ▼
+Artifacts + execution receipt + durable continuation state
+```
 
-> **Not another single-turn coding wrapper.** The core abstraction is a persistent agent harness with lifecycle, recurrence, isolation, and evidence.
+## Install
 
-[Long-running agents](docs/LONG_RUNNING.md) · [RLM](docs/RLM.md) · [Continual Harness](docs/CONTINUAL_HARNESS.md) · [RAH](docs/RAH.md) · [WASM Capsules](docs/WASM_CAPSULES.md) · [POCKET host](https://github.com/ItsNotAILABS/pocket) · [Pocket Voice](https://github.com/ItsNotAILABS/pocket-voice-to-text)
-
----
-
-## Install in one line
-
-**macOS / Linux**
+### macOS / Linux
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/master/install.sh | sh
 ```
 
-**Windows PowerShell**
+### Windows PowerShell
 
 ```powershell
 irm https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/master/install.ps1 | iex
 ```
 
-Then enter any project:
+Then:
 
 ```bash
 cd /path/to/project
 pocket-agent
 ```
 
-The installer prepares the local runtime under `~/.pocket/agent/` and installs the `pocket-agent` command.
-
----
-
-## What makes it different
-
-| Capability | POCKET Agent |
-|---|---|
-| **Persistent session** | Detach from the terminal and reattach to the same agent state |
-| **Durable goal** | Keep objective and progress across turns instead of re-prompting from scratch |
-| **RLM** | Treat context as variables and tools/subagents as callable functions in a persistent control environment |
-| **Continual harness** | `/refine` stores reviewable supplemental lessons and supports snapshots/rollback |
-| **RAH** | Fan out complete agent harnesses for independent work, not only naked model calls |
-| **Schedules + heartbeats** | Re-enter work periodically instead of depending on a human to reopen the session |
-| **WASM capsules** | Move risky, parallel, WebGPU, or isolated work into bounded runspaces |
-| **Agent messaging** | Running agents can communicate through the local bus |
-| **POCKET family protocol** | Provider-neutral execution envelopes and hashable receipts for host/voice integration |
-| **Open source** | MIT licensed and repository-native |
-| Slice | macOS / Linux | Windows |
-|-------|----------------|---------|
-| **Agent** | `curl -fsSL …/install.sh \| sh` | `irm …/install.ps1 \| iex` |
-| **SDK** | `curl -fsSL …/install/sdk.sh \| sh` | `irm …/install/sdk.ps1 \| iex` |
-| **Skills** | `curl -fsSL …/install/skills.sh \| sh` | `irm …/install/skills.ps1 \| iex` |
-| **Knowledge** | `curl -fsSL …/install/knowledge.sh \| sh` | `irm …/install/knowledge.ps1 \| iex` |
-| **Capsules** | `curl -fsSL …/install/capsules.sh \| sh` | `irm …/install/capsules.ps1 \| iex` |
-| **Mail** | `curl -fsSL …/install/mail.sh \| sh` | `irm …/install/mail.ps1 \| iex` |
-| **Plug-n-play all** | `curl -fsSL …/install/plug.sh \| sh` | `irm …/install/plug.ps1 \| iex` |
-
-**Agent Mail** = our own `*@agents.pocket.local` accounts + inboxes (not Gmail). Host UI `/mail` · API `/v1/agent-mail/*`.
-
-Full URLs and JSON catalog: **[install/README.md](./install/README.md)** · `install/slices.json`  
-Live host hub (when serve is up): **http://127.0.0.1:8787/install**
-
-### Ecosystem (ItsNotAI Labs)
-
-| Repo | Role |
-|------|------|
-| [pocket](https://github.com/ItsNotAILABS/pocket) | Host · desk · phone · genetic · mail · MCP |
-| [pocket-agent](https://github.com/ItsNotAILABS/pocket-agent) | This CLI + install slices |
-| [pocket-voice-to-text](https://github.com/ItsNotAILABS/pocket-voice-to-text) | Sovereign voice STT/TTS/agents |
-
----
-
-## Architecture
-
-<p align="center">
-  <img src="assets/pocket-agent-architecture.svg" width="100%" alt="POCKET Agent architecture" />
-</p>
-
-A session starts with a **goal + working directory + durable state**. The RLM controller can use tools directly, invoke recursive agent harnesses, enter capsules, or schedule later re-entry. The continual harness records explicit, reviewable improvements. Execution can emit bounded receipts containing status, timestamps, hashes, and runtime metadata—**not private model reasoning traces**.
-
-### Four load-bearing abstractions
-
-1. **RLM — Recursive Language Model control**  
-   Context becomes programmable state. Files, commands, subagents, and other tools become functions available to a persistent control loop.
-
-2. **Continual Harness**  
-   Improvement is stored as supplemental, inspectable state. `/refine` does not silently rewrite an immutable base prompt; snapshots allow rollback.
-
-3. **RAH — Recursive Agent Harnesses**  
-   Large jobs can fan out into complete workers with their own context and execution loop, then consolidate results back into the parent task.
-
-4. **WASM Capsules**  
-   Isolation is an explicit execution choice. Capsules support **20 named reasons** including untrusted evaluation, parallel filesystem work, and WebGPU compute.
-
----
-
-## A five-minute tour
-
-### 1. Start inside a repository
+From source:
 
 ```bash
-cd my-project
+git clone https://github.com/ItsNotAILABS/pocket-agent.git
+cd pocket-agent
+python -m pip install -e ".[dev]"
+pytest -q
+pocket-agent doctor --fix
+```
+
+## Core product capabilities
+
+| Capability | What it does |
+|---|---|
+| Persistent sessions | detach and later reattach to the same working state |
+| Durable goals | keep objective/progress across turns |
+| RLM | represent context as programmable state and tools/workers as callable operations |
+| RAH | fan out complete agent harnesses for independent subproblems |
+| Continual harness | retain explicit refinements, snapshots and rollback points |
+| Schedules | re-enter work periodically without rebuilding context |
+| WASM capsules | move isolated work into explicit runspaces |
+| Execution budgets | bound time, token, cost, file, subprocess and child-worker usage |
+| Idempotency | prevent accidental duplicate execution for retried requests |
+| Leases | give long-running work explicit ownership and expiry |
+| Retry policy | bounded exponential retry instead of uncontrolled loops |
+| Circuit breaker | isolate repeatedly failing dependencies |
+| Drift detection | compare declared capability with observed execution behavior |
+| Outcome evaluation | require acceptance criteria/evidence before completion |
+| Receipts | correlate request, tenant, session, action, runtime and artifacts |
+
+## Five-minute workflow
+
+Start in a repository:
+
+```bash
 pocket-agent
 ```
 
-### 2. Give it a durable goal
+Set a persistent goal:
 
 ```text
-/goal Harden every public API route, add missing tests, and leave the repository releasable.
+/goal Harden the API, add missing tests, and leave the repository releasable.
 ```
 
-### 3. Let it refine its working method
+Run bounded autonomous work:
 
 ```text
-/refine
+/autonomous
 ```
 
-Refinement becomes reviewable supplemental state instead of disappearing with the current prompt.
-
-### 4. Detach without killing the work
+Detach:
 
 ```text
 /detach
 ```
 
-Later:
+Reattach later:
 
 ```bash
 pocket-agent agents
 pocket-agent attach <agent>
 ```
 
-### 5. Re-enter periodically
+Schedule re-entry:
 
 ```bash
-pocket-agent schedule add --every 30m --prompt "Recheck the goal and continue only if useful work remains."
-pocket-agent schedule list
+pocket-agent schedule add --every 30m --prompt "Continue the active goal when useful work remains."
 ```
 
-### 6. Isolate risky work
+Isolate a task:
 
 ```bash
 pocket-agent capsule spin --reason untrusted_eval
-pocket-agent capsule spin --webgpu --reason webgpu_compute
 ```
-
----
 
 ## CLI
 
-```bash
-pocket-agent                              # interactive agent in the current directory
-pocket-agent run "audit every API"       # one-shot / bounded run; RAH may fan out when appropriate
-pocket-agent agents                       # running, idle, and saved sessions
-pocket-agent attach <agent>               # reattach to a session
-pocket-agent --resume <path|id>           # resume saved work
-pocket-agent status                       # daemon/service status
-pocket-agent doctor [--fix]               # inspect or repair local services
-pocket-agent schedule list|add|fire       # scheduled re-entry
-pocket-agent capsule reasons              # list the 20 capsule reasons
-pocket-agent capsule spin --reason <id>   # create an isolated runspace
-pocket-agent update [--force]             # update installation
-pocket-agent shutdown [--force]           # controlled shutdown
+```text
+pocket-agent
+pocket-agent run "audit every API route"
+pocket-agent agents
+pocket-agent attach <agent>
+pocket-agent --resume <path|id>
+pocket-agent status
+pocket-agent doctor [--fix]
+pocket-agent schedule list|add|fire
+pocket-agent capsule reasons
+pocket-agent capsule spin --reason <id>
+pocket-agent update [--force]
+pocket-agent shutdown [--force]
 ```
 
-In-session commands:
+Session commands:
 
 ```text
-/goal       persistent objective
-/refine     save reviewable harness improvements
-/heartbeat  periodic re-entry configuration
-/autonomous bounded turn/token/time execution
-/capsule    isolate suitable work
-/detach     leave the terminal, preserve the session
-/help       command reference
+/goal
+/refine
+/heartbeat
+/autonomous
+/capsule
+/detach
+/help
 ```
 
----
+## Resilience primitives
 
-## POCKET family integration
+POCKET Agent exposes deterministic runtime helpers for operating long jobs instead of leaving reliability inside prompts.
 
-POCKET Agent is intentionally **not** the whole platform.
-
-```text
-Pocket Voice ── conversation timing / patient listening / voice context
-       │
-       ▼
-POCKET Host ─── identity / teams / routing / governance / product surfaces
-       │
-       ▼
-POCKET Agent ── long-running execution / schedules / RAH / capsules / receipts
+```python
+from pocket_agent import (
+    Budget,
+    Usage,
+    budget_status,
+    route_capability,
+    evaluate_outcome,
+    detect_drift,
+    recovery_plan,
+)
 ```
 
-The v0.2 package includes the provider-neutral `pocket.family.v1` execution contract:
+The runtime also contains production-oriented helpers for:
+
+- deterministic request digests;
+- idempotency records;
+- resource/job leases with expiry;
+- bounded retry policies;
+- circuit breaker state;
+- retry-storm prevention.
+
+These primitives are designed to be stored by the host/runtime layer so retries, restarts and distributed handoffs preserve the same execution identity.
+
+## POCKET family protocol
 
 ```python
 from pocket_agent import make_envelope, make_receipt
@@ -219,11 +196,12 @@ envelope = make_envelope(
     session_id="session-42",
     principal="user-7",
     tenant="team-acme",
+    agent_id="agent-a",
 )
 
 receipt = make_receipt(
     envelope,
-    status="completed",
+    status="succeeded",
     runtime_ms=842,
     result_summary="auth audit completed",
 ).to_dict()
@@ -238,13 +216,58 @@ agent.schedule
 agent.capsule
 ```
 
-This keeps responsibilities clean: **Pocket Voice owns turn timing, POCKET owns identity/routing, and POCKET Agent owns execution.**
+Receipts preserve request, tenant, session and agent correlation plus runtime and artifact evidence.
 
----
+## Architecture
 
-## One-line install slices
+<p align="center">
+  <img src="assets/pocket-agent-architecture.svg" width="100%" alt="POCKET Agent architecture" />
+</p>
 
-You do not have to install the whole family to use one piece.
+```text
+Pocket Voice
+conversation timing + voice context
+        │
+        ▼
+POCKET Host
+identity + teams + policy + routing + approvals
+        │
+        ▼
+POCKET Agent
+long-running execution + schedules + RAH + capsules
+        │
+        ├── MatDaemon bounded compute
+        ├── CAPSULA isolated runtime
+        ├── Medina Memory durable outcomes
+        └── NEXUS ecosystem handoffs
+```
+
+## Execution lifecycle
+
+A production request follows an explicit lifecycle:
+
+```text
+accept
+  -> validate scope
+  -> evaluate policy
+  -> reserve budget / lease
+  -> execute
+  -> evaluate acceptance criteria
+  -> persist artifacts
+  -> emit receipt
+  -> release lease
+  -> handoff or persist continuation state
+```
+
+Failures use bounded recovery:
+
+```text
+retry_once -> alternate capability -> handoff -> stop_and_report
+```
+
+Repeated dependency failure opens a circuit instead of creating an infinite retry loop.
+
+## Install slices
 
 | Slice | macOS / Linux | Windows |
 |---|---|---|
@@ -253,102 +276,65 @@ You do not have to install the whole family to use one piece.
 | Skills | `curl -fsSL …/install/skills.sh \| sh` | `irm …/install/skills.ps1 \| iex` |
 | Knowledge | `curl -fsSL …/install/knowledge.sh \| sh` | `irm …/install/knowledge.ps1 \| iex` |
 | Capsules | `curl -fsSL …/install/capsules.sh \| sh` | `irm …/install/capsules.ps1 \| iex` |
-| Everything | `curl -fsSL …/install/plug.sh \| sh` | `irm …/install/plug.ps1 \| iex` |
+| Mail | `curl -fsSL …/install/mail.sh \| sh` | `irm …/install/mail.ps1 \| iex` |
+| Full family | `curl -fsSL …/install/plug.sh \| sh` | `irm …/install/plug.ps1 \| iex` |
 
-See [`install/README.md`](install/README.md) and [`install/slices.json`](install/slices.json) for complete URLs and machine-readable metadata.
-
----
-
-## Install from source
-
-```bash
-git clone https://github.com/ItsNotAILABS/pocket-agent.git
-cd pocket-agent
-python -m pip install -e ".[dev]"
-pytest
-pocket-agent doctor --fix
-```
-
-Then run it against a project:
-
-```bash
-cd /path/to/project
-pocket-agent
-```
-
----
-
-## Safety and execution boundary
-
-POCKET Agent can execute model-generated Python and project commands with **your user permissions**. The daemon, lifecycle manager, and continual harness improve continuity and recovery; **they are not a security sandbox**.
-
-Use a clean worktree or repository you can restore. Review material changes. For untrusted execution, use a WASM capsule or another real isolation boundary:
-
-```bash
-pocket-agent capsule spin --reason untrusted_eval
-```
-
-The POCKET family receipt contract deliberately carries operational evidence—request IDs, status, timestamps, runtime, and artifact hashes—without exposing private chain-of-thought or hidden reasoning traces.
-
----
+See [`install/README.md`](install/README.md) and [`install/slices.json`](install/slices.json).
 
 ## Repository map
 
 ```text
 src/pocket_agent/
-├── agent.py             agent lifecycle
-├── daemon.py            long-running service + schedules
-├── harness.py           continual harness state
-├── rlm.py               recursive control primitives
-├── capsules.py          WASM capsule orchestration
-├── messaging.py         agent-to-agent bus
-├── family_protocol.py   POCKET family envelopes + receipts
-└── cli.py               command-line surface
+├── agent.py
+├── daemon.py
+├── harness.py
+├── rlm.py
+├── capsules.py
+├── messaging.py
+├── family_protocol.py
+├── intelligence.py
+├── resilience.py
+└── cli.py
 
-tests/                   executable contract tests
-docs/                    architecture and operating guides
-install/                 one-line install slices
-assets/                  repository artwork
+tests/
+docs/
+install/
+assets/
+ecosystem.surface.json
 ```
 
----
+## Operator checklist
+
+Before delegating a large repository run:
+
+```text
+[ ] working tree is recoverable
+[ ] durable goal is explicit
+[ ] tenant/project/session scope is set
+[ ] write and runtime budget is bounded
+[ ] required external credentials are available to the host, not the prompt
+[ ] acceptance criteria are stated
+[ ] risky work uses an isolation boundary
+[ ] receipt/artifact destination is configured
+```
 
 ## Documentation
 
-| Document | Purpose |
-|---|---|
-| [LONG_RUNNING.md](docs/LONG_RUNNING.md) | detach, goals, heartbeats, autonomous budgets |
-| [RLM.md](docs/RLM.md) | persistent programmable control environment |
-| [CONTINUAL_HARNESS.md](docs/CONTINUAL_HARNESS.md) | refinement, snapshots, rollback |
-| [RAH.md](docs/RAH.md) | recursive full-agent fan-out |
-| [WASM_CAPSULES.md](docs/WASM_CAPSULES.md) | capsule model and 20 isolation reasons |
-| [BEATS_PRIME.md](docs/BEATS_PRIME.md) | current feature comparison |
+- [`docs/LONG_RUNNING.md`](docs/LONG_RUNNING.md)
+- [`docs/RLM.md`](docs/RLM.md)
+- [`docs/CONTINUAL_HARNESS.md`](docs/CONTINUAL_HARNESS.md)
+- [`docs/RAH.md`](docs/RAH.md)
+- [`docs/WASM_CAPSULES.md`](docs/WASM_CAPSULES.md)
+- [`install/README.md`](install/README.md)
 
----
+## Ecosystem
 
-## Where this is going
-
-The next production layer is a coherent POCKET family runtime where a request can move from voice or UI into governed host routing, enter a long-running agent, fan out through RAH/capsules, and return a machine-verifiable execution receipt.
-
-Near-term work:
-
-- host client for `pocket.family.v1`
-- `agent.run`, `agent.attach`, `agent.schedule`, `agent.capsule` transport adapters
-- receipt persistence and artifact linkage
-- stronger clean-worktree / change-budget guards
-- cross-repo compatibility tests with POCKET and Pocket Voice
-- packaged API/SDK surfaces for external products
-
----
-
-## Acknowledgements
-
-POCKET Agent is informed by open work on recursive language models, coding harnesses, persistent agents, and Prime/pi-adjacent agent designs. It is not a fork of those systems. POCKET Agent focuses on durable lifecycle, recursive full-agent execution, explicit isolation, and integration into the larger POCKET product family.
+- [POCKET Host](https://github.com/ItsNotAILABS/pocket) — identity, tenancy, policy, routing and user surfaces
+- [Pocket Voice](https://github.com/ItsNotAILABS/pocket-voice-to-text) — conversational/voice control plane
+- [NEXUS](https://github.com/ItsNotAILABS/nexus) — ecosystem protocols and federation
+- [CAPSULA](https://github.com/ItsNotAILABS/CAPSULA) — isolated runtime/build capsules
+- [MatDaemon](https://github.com/ItsNotAILABS/MatDaemon) — bounded matrix/compute worker
 
 ## License
 
-**MIT** — see [LICENSE](LICENSE).
-
-## Status
-
-**Public alpha.** The long-running daemon is file-backed; host workers are optional. Capsule behavior depends on the available local/POCKET host runtime. A documented capability is not automatically evidence of production-scale reliability—release claims should be backed by tests and deployment receipts.
+MIT — see [`LICENSE`](LICENSE).
