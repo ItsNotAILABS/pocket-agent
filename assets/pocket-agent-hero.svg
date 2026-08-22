@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="520" viewBox="0 0 1400 520" role="img" aria-labelledby="title desc">
+  <title id="title">POCKET Agent</title>
+  <desc id="desc">A long-running agent harness with recursive execution, persistent state, and isolated capsules.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07111f"/><stop offset="1" stop-color="#111b34"/></linearGradient>
+    <radialGradient id="core"><stop stop-color="#6ee7b7"/><stop offset=".5" stop-color="#22c55e" stop-opacity=".45"/><stop offset="1" stop-color="#22c55e" stop-opacity="0"/></radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="12" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1400" height="520" rx="32" fill="url(#bg)"/>
+  <g opacity=".18" stroke="#7dd3fc"><path d="M0 96H1400M0 176H1400M0 256H1400M0 336H1400M0 416H1400"/><path d="M140 0V520M280 0V520M420 0V520M560 0V520M700 0V520M840 0V520M980 0V520M1120 0V520M1260 0V520"/></g>
+  <circle cx="1080" cy="252" r="205" fill="url(#core)"/>
+  <g fill="none" stroke="#6ee7b7" filter="url(#glow)">
+    <circle cx="1080" cy="252" r="84" stroke-width="3"/>
+    <circle cx="1080" cy="252" r="130" opacity=".5"/>
+    <path d="M1000 252h160M1080 172v160" opacity=".65"/>
+    <path d="M1080 168c78 20 108 90 72 148-34 55-104 72-156 37-50-34-65-102-31-151 27-40 70-55 115-34Z" stroke="#818cf8" stroke-width="3"/>
+  </g>
+  <g font-family="Inter,Segoe UI,Arial,sans-serif" fill="#f8fafc">
+    <text x="92" y="172" font-size="74" font-weight="800" letter-spacing="-2">POCKET Agent</text>
+    <text x="96" y="226" font-size="26" fill="#a7f3d0">Long-running intelligence that can leave the prompt, work, return, and continue.</text>
+    <text x="96" y="294" font-size="21" fill="#cbd5e1">RLM · continual harness · recursive agents · schedules · goals · WASM capsules</text>
+    <rect x="96" y="340" width="212" height="52" rx="26" fill="#10b981"/><text x="126" y="374" font-size="20" font-weight="700">MIT · open source</text>
+    <rect x="326" y="340" width="236" height="52" rx="26" fill="#1e293b" stroke="#475569"/><text x="354" y="374" font-size="20" font-weight="700">Python 3.11+</text>
+  </g>
+</svg>
