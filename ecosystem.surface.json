@@ -1,0 +1,12 @@
+{
+  "schema": "nexus.capability.v1",
+  "component": "pocket-agent",
+  "repository": "ItsNotAILABS/pocket-agent",
+  "role": "long-running-execution-plane",
+  "actions": ["agent.run","agent.attach","agent.schedule","agent.capsule","agent.route_capability","agent.evaluate_outcome","agent.detect_drift","agent.recovery_plan"],
+  "produces": ["nexus.execution-receipt.v1","nexus.artifact.v1","nexus.memory-event.v1","nexus.handoff.v1"],
+  "consumes": ["nexus.task.v1","nexus.policy-decision.v1","nexus.budget.v1","nexus.context-pack.v1","nexus.capability.v1"],
+  "limits": {"tenant_identity_authority":false,"voice_turn_authority":false,"implicit_unbounded_autonomy":false,"private_reasoning_export":false},
+  "proof": {"state":"source","tests_required_for_promotion":true},
+  "authority": "ItsNotAILABS/nexus"
+}

@@ -2,7 +2,7 @@ name: pocket-agent-ci
 
 on:
   push:
-    branches: [master, main, "pocket-agent-v0.2-product-polish"]
+    branches: [master, main, "alpha-intelligence-practical-v1"]
   pull_request:
 
 permissions:
@@ -11,6 +11,7 @@ permissions:
 jobs:
   test:
     strategy:
+      fail-fast: false
       matrix:
         python-version: ["3.11", "3.12"]
     runs-on: ubuntu-latest
@@ -19,19 +20,25 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-          cache: pip
-      - name: Install
-        run: python -m pip install -e ".[dev]"
-      - name: Compile
+      - name: Python info
+        run: python --version
+      - name: Install build and test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest
+          python -m pip install -e .
+      - name: Compile package
         run: python -m compileall -q src
       - name: Test
-        run: pytest -q
-      - name: Import smoke test
+        run: python -m pytest -q
+      - name: Import and capability smoke test
         run: |
           python - <<'PY'
           import pocket_agent
-          from pocket_agent import capability_descriptor
+          from pocket_agent import capability_descriptor, Budget, route_capability
           assert pocket_agent.__version__ == "0.2.0"
           assert capability_descriptor()["component"] == "pocket-agent"
-          print("POCKET Agent import gate passed")
+          assert Budget().to_protocol()["schema"] == "nexus.budget.v1"
+          assert route_capability("run agent", [{"component":"pocket-agent","role":"execution","actions":["agent.run"]}])["selected"] == "pocket-agent"
+          print("POCKET Agent Alpha import gate passed")
           PY
