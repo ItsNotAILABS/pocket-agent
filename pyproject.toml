@@ -4,21 +4,28 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pocket-agent"
-version = "0.1.0"
-description = "POCKET Agent — RLM + continual harness + RAH + WASM capsules (beats single-REPL agents)"
+version = "0.2.0"
+description = "POCKET Agent — long-running RLM + continual harness + recursive agent harnesses + WASM capsules"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [{ name = "ItsNotAI Labs" }]
-keywords = ["agent", "rlm", "rah", "wasm", "capsule", "pocket", "harness"]
+keywords = ["agent", "rlm", "rah", "wasm", "capsule", "pocket", "harness", "long-running", "autonomous-agent"]
 dependencies = []
 
 [project.optional-dependencies]
 dev = ["pytest>=7.0"]
-host = []  # use pocket-os on PYTHONPATH for full host
+host = []  # use POCKET host on PYTHONPATH for full platform integration
 
 [project.scripts]
 pocket-agent = "pocket_agent.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/ItsNotAILABS/pocket-agent"
+Repository = "https://github.com/ItsNotAILABS/pocket-agent"
+Issues = "https://github.com/ItsNotAILABS/pocket-agent/issues"
+POCKET = "https://github.com/ItsNotAILABS/pocket"
+Voice = "https://github.com/ItsNotAILABS/pocket-voice-to-text"
 
 [tool.setuptools.packages.find]
 where = ["src"]
