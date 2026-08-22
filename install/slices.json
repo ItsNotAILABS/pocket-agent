@@ -68,6 +68,21 @@
       "provides": ["host runtime path notes", "serve command", "desk URL", "economy + protocols"],
       "plug_n_play": false,
       "for": "Operators running the full POCKET product on a PC"
+    },
+    {
+      "id": "mail",
+      "name": "POCKET Agent Mail (accounts + inboxes)",
+      "one_liner_sh": "curl -fsSL https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/install/mail.sh | sh",
+      "one_liner_ps1": "irm https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/install/mail.ps1 | iex",
+      "provides": [
+        "agents.pocket.local knowledge",
+        "agent-mail skill",
+        "AGENTS.md for coding agents",
+        "API map /v1/agent-mail/*",
+        "manifest for plug-n-play"
+      ],
+      "plug_n_play": true,
+      "for": "Agents that need their own email accounts + inboxes (not Gmail)"
     }
   ]
 }

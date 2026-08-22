@@ -59,6 +59,18 @@ curl -fsSL https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/inst
 irm https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/install/capsules.ps1 | iex
 ```
 
+### Agent Mail (our own accounts + inboxes)
+
+Domain `agents.pocket.local` — knowledge + skill for coding agents; host UI `/mail` when serve is up.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/install/mail.sh | sh
+```
+
+```powershell
+irm https://raw.githubusercontent.com/ItsNotAILABS/pocket-agent/main/install/mail.ps1 | iex
+```
+
 ### Full agent plug-n-play (SDK + skills + knowledge + agent)
 
 ```bash
