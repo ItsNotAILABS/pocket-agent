@@ -16,6 +16,13 @@ __all__ = [
     "make_envelope",
     "make_receipt",
     "capability_descriptor",
+    "Budget",
+    "Usage",
+    "budget_status",
+    "route_capability",
+    "evaluate_outcome",
+    "detect_drift",
+    "recovery_plan",
 ]
 
 from pocket_agent.agent import Agent
@@ -28,4 +35,13 @@ from pocket_agent.family_protocol import (
     make_envelope,
     make_receipt,
     capability_descriptor,
+)
+from pocket_agent.intelligence import (
+    Budget,
+    Usage,
+    budget_status,
+    route_capability,
+    evaluate_outcome,
+    detect_drift,
+    recovery_plan,
 )
