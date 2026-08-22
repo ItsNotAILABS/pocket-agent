@@ -1,0 +1,37 @@
+name: pocket-agent-ci
+
+on:
+  push:
+    branches: [master, main, "pocket-agent-v0.2-product-polish"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install
+        run: python -m pip install -e ".[dev]"
+      - name: Compile
+        run: python -m compileall -q src
+      - name: Test
+        run: pytest -q
+      - name: Import smoke test
+        run: |
+          python - <<'PY'
+          import pocket_agent
+          from pocket_agent import capability_descriptor
+          assert pocket_agent.__version__ == "0.2.0"
+          assert capability_descriptor()["component"] == "pocket-agent"
+          print("POCKET Agent import gate passed")
+          PY
