@@ -23,6 +23,11 @@ __all__ = [
     "evaluate_outcome",
     "detect_drift",
     "recovery_plan",
+    "RetryPolicy",
+    "CircuitBreaker",
+    "Lease",
+    "request_digest",
+    "idempotency_record",
 ]
 
 from pocket_agent.agent import Agent
@@ -44,4 +49,11 @@ from pocket_agent.intelligence import (
     evaluate_outcome,
     detect_drift,
     recovery_plan,
+)
+from pocket_agent.resilience import (
+    RetryPolicy,
+    CircuitBreaker,
+    Lease,
+    request_digest,
+    idempotency_record,
 )
