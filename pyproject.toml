@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pocket-agent"
-version = "0.3.0"
-description = "POCKET Agent — long-running execution, continual harnesses, WASM capsules, and approval-bound runtime cells"
+version = "0.4.0"
+description = "POCKET Agent — durable multi-task missions, long-running execution, approval-bound runtime cells, continual harnesses, and WASM capsules"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [{ name = "ItsNotAI Labs" }]
-keywords = ["agent", "rlm", "rah", "wasm", "capsule", "pocket", "harness", "long-running", "autonomous-agent", "runtime-cell", "approval", "sandbox"]
+keywords = ["agent", "mission", "workflow", "task-dag", "artifact", "rlm", "rah", "wasm", "capsule", "pocket", "harness", "long-running", "autonomous-agent", "runtime-cell", "approval", "sandbox"]
 dependencies = []
 
 [project.optional-dependencies]
@@ -19,6 +19,8 @@ host = []
 
 [project.scripts]
 pocket-agent = "pocket_agent.cli:main"
+pocket-mission = "pocket_agent.mission_cli:main"
+pocket-mission-worker = "pocket_agent.mission_worker:main"
 
 [project.urls]
 Homepage = "https://github.com/ItsNotAILABS/pocket-agent"
@@ -27,6 +29,7 @@ Issues = "https://github.com/ItsNotAILABS/pocket-agent/issues"
 POCKET = "https://github.com/ItsNotAILABS/pocket"
 Voice = "https://github.com/ItsNotAILABS/pocket-voice-to-text"
 NEXUS = "https://github.com/ItsNotAILABS/nexus"
+AURO = "https://github.com/ItsNotAILABS/Auro14B"
 
 [tool.setuptools.packages.find]
 where = ["src"]
