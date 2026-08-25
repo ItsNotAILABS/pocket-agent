@@ -1,0 +1,80 @@
+{
+  "schema": "nexus.capability.v1",
+  "component": "pocket-agent-missions",
+  "repository": "ItsNotAILABS/pocket-agent",
+  "version": "2.0.0",
+  "role": "durable-multi-workstream-mission-execution",
+  "actions": [
+    "mission.plan",
+    "mission.create",
+    "mission.read",
+    "mission.run_burst",
+    "mission.pause",
+    "mission.resume",
+    "mission.cancel",
+    "mission.artifacts.list",
+    "mission.artifacts.download",
+    "mission.worker.status"
+  ],
+  "produces": [
+    "nexus.job.v1",
+    "nexus.task.v1",
+    "nexus.execution-receipt.v1",
+    "nexus.artifact.v1",
+    "nexus.audit-event.v1",
+    "nexus.health.v1"
+  ],
+  "consumes": [
+    "nexus.identity-ref.v1",
+    "nexus.policy-decision.v1",
+    "nexus.approval.v1",
+    "nexus.budget.v1",
+    "nexus.context-pack.v1",
+    "nexus.capability.v1"
+  ],
+  "reasoning": {
+    "profiles": ["quick", "standard", "deep", "exhaustive"],
+    "private_chain_of_thought_export": false,
+    "decision_summaries": true,
+    "independent_review": true,
+    "bounded_revision_cycles": true
+  },
+  "runtime": {
+    "state": "sqlite-wal",
+    "parallel_workstreams": true,
+    "task_leases": true,
+    "restart_recovery": true,
+    "long_running_worker": true,
+    "worker_self_approval": false
+  },
+  "artifacts": {
+    "safe_relative_paths": true,
+    "sha256": true,
+    "media_types": true,
+    "renderer_receipts": true,
+    "manifest": "ARTIFACT_MANIFEST.json",
+    "bundle": "mission-artifacts.zip",
+    "fake_binary_files": false
+  },
+  "identity": {
+    "principal_and_tenant_bound": true,
+    "digest_only_api_key_registry": true,
+    "caller_selected_remote_identity": false,
+    "scoped_api_keys": true
+  },
+  "limits": {
+    "unbounded_task_creation": false,
+    "cross_tenant_access": false,
+    "silent_execution_fallback": false,
+    "binary_artifact_without_renderer": false,
+    "mission_completion_with_incomplete_tasks": false
+  },
+  "proof": {
+    "state": "source-and-deterministic-tests",
+    "production_worker_evidence_required": true,
+    "live_auro_endpoint_evidence_required": true,
+    "semantic_artifact_validation_required": true,
+    "deployment_and_external_custody_are_separate": true
+  },
+  "authority": "ItsNotAILABS/nexus"
+}
