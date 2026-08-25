@@ -1,9 +1,10 @@
-name: pocket-agent-ci
+name: pocket-agent-corpus-ci
 
 on:
   push:
-    branches: [master, main, "alpha-intelligence-practical-v1"]
+    branches: [master]
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -31,14 +32,39 @@ jobs:
         run: python -m compileall -q src
       - name: Test
         run: python -m pytest -q
-      - name: Import and capability smoke test
+      - name: Import and governed-runtime smoke test
         run: |
           python - <<'PY'
+          from pathlib import Path
+          import tempfile
           import pocket_agent
-          from pocket_agent import capability_descriptor, Budget, route_capability
-          assert pocket_agent.__version__ == "0.2.0"
+          from pocket_agent import (
+              Budget, OperationRequest, RuntimeCellGovernor, RuntimeCellSpec,
+              capability_descriptor, route_capability,
+          )
+          assert pocket_agent.__version__ == "0.3.0"
           assert capability_descriptor()["component"] == "pocket-agent"
           assert Budget().to_protocol()["schema"] == "nexus.budget.v1"
           assert route_capability("run agent", [{"component":"pocket-agent","role":"execution","actions":["agent.run"]}])["selected"] == "pocket-agent"
-          print("POCKET Agent Alpha import gate passed")
+          with tempfile.TemporaryDirectory() as directory:
+              governor = RuntimeCellGovernor(Path(directory) / "cells.sqlite3", signing_key="ci-secret")
+              governor.register_cell(RuntimeCellSpec(
+                  cell_id="ci-cell", runtime_class="agent-sandbox",
+                  principal_id="runtime-cell:ci", agent_id="ci-agent",
+                  backend="test-adapter", policy={"network":{"default":"deny"}}, state="ready",
+              ))
+              operation = OperationRequest(
+                  operator_id="ci-user", agent_id="ci-agent", cell_id="ci-cell",
+                  tool="sandbox.command.execute", arguments={"argv":["test"]},
+              )
+              approval = governor.propose(operation)
+              token = governor.approve(approval["approval_id"], "ci-user")
+              receipt = governor.execute(
+                  approval_id=approval["approval_id"], operation=operation, token=token,
+                  executor=lambda action: {"ok": True},
+                  validator=lambda output: {"status": "pass"},
+              )
+              assert receipt["status"] == "succeeded"
+              assert governor.verify_receipt_chain()["status"] == "pass"
+          print("POCKET Agent Corpus runtime gate passed")
           PY
