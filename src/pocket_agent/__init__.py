@@ -1,8 +1,8 @@
-"""POCKET Agent — RLM + continual harness + RAH + WASM capsules."""
+"""POCKET Agent — RLM + continual harness + RAH + governed runtime cells."""
 
 from __future__ import annotations
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __all__ = [
     "Agent",
     "Harness",
@@ -28,6 +28,11 @@ __all__ = [
     "Lease",
     "request_digest",
     "idempotency_record",
+    "RuntimeCellSpec",
+    "OperationRequest",
+    "RuntimeCellGovernor",
+    "RUNTIME_CLASSES",
+    "EXECUTION_SEQUENCE",
 ]
 
 from pocket_agent.agent import Agent
@@ -56,4 +61,11 @@ from pocket_agent.resilience import (
     Lease,
     request_digest,
     idempotency_record,
+)
+from pocket_agent.runtime_cells import (
+    RuntimeCellSpec,
+    OperationRequest,
+    RuntimeCellGovernor,
+    RUNTIME_CLASSES,
+    EXECUTION_SEQUENCE,
 )
