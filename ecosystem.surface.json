@@ -2,11 +2,60 @@
   "schema": "nexus.capability.v1",
   "component": "pocket-agent",
   "repository": "ItsNotAILABS/pocket-agent",
-  "role": "long-running-execution-plane",
-  "actions": ["agent.run","agent.attach","agent.schedule","agent.capsule","agent.route_capability","agent.evaluate_outcome","agent.detect_drift","agent.recovery_plan"],
-  "produces": ["nexus.execution-receipt.v1","nexus.artifact.v1","nexus.memory-event.v1","nexus.handoff.v1"],
-  "consumes": ["nexus.task.v1","nexus.policy-decision.v1","nexus.budget.v1","nexus.context-pack.v1","nexus.capability.v1"],
-  "limits": {"tenant_identity_authority":false,"voice_turn_authority":false,"implicit_unbounded_autonomy":false,"private_reasoning_export":false},
-  "proof": {"state":"source","tests_required_for_promotion":true},
+  "role": "long-running-governed-execution-plane",
+  "research_corpus": "medina.corpus-architectura.v2@2.1.0",
+  "actions": [
+    "agent.run",
+    "agent.attach",
+    "agent.schedule",
+    "agent.capsule",
+    "agent.route_capability",
+    "agent.evaluate_outcome",
+    "agent.detect_drift",
+    "agent.recovery_plan",
+    "runtime_cell.create",
+    "runtime_cell.inspect",
+    "runtime_cell.operation.propose",
+    "runtime_cell.operation.approve",
+    "runtime_cell.operation.execute",
+    "runtime_cell.receipts.verify"
+  ],
+  "produces": [
+    "nexus.execution-receipt.v1",
+    "nexus.artifact.v1",
+    "nexus.memory-event.v1",
+    "nexus.handoff.v1",
+    "nexus.runtime-cell.v1",
+    "nexus.approval.v1",
+    "nexus.audit-event.v1"
+  ],
+  "consumes": [
+    "nexus.task.v1",
+    "nexus.policy-decision.v1",
+    "nexus.approval.v1",
+    "nexus.budget.v1",
+    "nexus.context-pack.v1",
+    "nexus.capability.v1",
+    "nexus.runtime-cell.v1"
+  ],
+  "runtime_classes": ["agent-sandbox", "app-bottle", "mini-os"],
+  "execution_sequence": ["discover", "classify-risk", "plan", "approve", "execute", "validate", "receipt"],
+  "limits": {
+    "tenant_identity_authority": false,
+    "voice_turn_authority": false,
+    "implicit_unbounded_autonomy": false,
+    "private_reasoning_export": false,
+    "nonempty_approval_id_is_authorization": false,
+    "approval_reuse": false,
+    "generated_code_receives_secrets_by_default": false,
+    "generated_code_receives_network_by_default": false
+  },
+  "proof": {
+    "state": "source",
+    "tests_required_for_promotion": true,
+    "runtime_cell_store": "src/pocket_agent/runtime_cells.py",
+    "persistent_approval_replay_protection": true,
+    "execution_backend_evidence_separate": true
+  },
   "authority": "ItsNotAILABS/nexus"
 }
