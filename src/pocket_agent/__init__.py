@@ -1,8 +1,8 @@
-"""POCKET Agent — RLM + continual harness + RAH + governed runtime cells."""
+"""POCKET Agent — durable missions, governed execution, RLM, RAH, and capsules."""
 
 from __future__ import annotations
 
-__version__ = "0.3.0"
+__version__ = "0.4.0"
 __all__ = [
     "Agent",
     "Harness",
@@ -33,6 +33,17 @@ __all__ = [
     "RuntimeCellGovernor",
     "RUNTIME_CLASSES",
     "EXECUTION_SEQUENCE",
+    "ArtifactRecord",
+    "ArtifactStore",
+    "MissionStore",
+    "MissionPlanner",
+    "MissionOrchestrator",
+    "MissionService",
+    "MissionWorker",
+    "TaskExecutionResult",
+    "AuroCouncilClient",
+    "AuroCouncilTaskExecutor",
+    "RuntimeCellTaskExecutor",
 ]
 
 from pocket_agent.agent import Agent
@@ -69,3 +80,17 @@ from pocket_agent.runtime_cells import (
     RUNTIME_CLASSES,
     EXECUTION_SEQUENCE,
 )
+from pocket_agent.mission_artifacts import ArtifactRecord, ArtifactStore
+from pocket_agent.mission_store import MissionStore
+from pocket_agent.mission_orchestrator import (
+    MissionPlanner,
+    MissionOrchestrator,
+    TaskExecutionResult,
+)
+from pocket_agent.mission_executors import (
+    AuroCouncilClient,
+    AuroCouncilTaskExecutor,
+    RuntimeCellTaskExecutor,
+)
+from pocket_agent.mission_service import MissionService
+from pocket_agent.mission_worker import MissionWorker

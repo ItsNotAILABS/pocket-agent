@@ -1,0 +1,164 @@
+name: Multi-Task Missions v2
+
+on:
+  pull_request:
+    paths:
+      - 'src/pocket_agent/mission_*.py'
+      - 'tests/test_mission_program_v2.py'
+      - 'docs/MULTI_TASK_MISSIONS_V2.md'
+      - '.github/workflows/multi-task-missions-v2.yml'
+      - 'pyproject.toml'
+  push:
+    branches: [master]
+    paths:
+      - 'src/pocket_agent/mission_*.py'
+      - 'tests/test_mission_program_v2.py'
+      - 'docs/MULTI_TASK_MISSIONS_V2.md'
+      - '.github/workflows/multi-task-missions-v2.yml'
+      - 'pyproject.toml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  mission-program:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install test dependencies
+        run: |
+          python -m pip install --disable-pip-version-check --upgrade pip
+          python -m pip install --disable-pip-version-check pytest
+          python -m pip install -e .
+
+      - name: Compile mission runtime
+        run: |
+          python -m py_compile \
+            src/pocket_agent/mission_profiles.py \
+            src/pocket_agent/mission_renderers.py \
+            src/pocket_agent/mission_program.py \
+            src/pocket_agent/mission_worker.py \
+            src/pocket_agent/mission_cli.py
+
+      - name: Run mission v1 and v2 regression tests
+        run: |
+          mkdir -p artifacts/multi-task-missions-v2
+          python -m pytest -q \
+            tests/test_missions.py \
+            tests/test_mission_program_v2.py \
+            | tee artifacts/multi-task-missions-v2/pytest.txt
+
+      - name: Compile a deep multi-workstream plan
+        run: |
+          cat > artifacts/multi-task-missions-v2/request.json <<'JSON'
+          {
+            "title": "CI multi-workstream mission",
+            "objective": "Compile a durable mission plan with independent workstreams and final artifacts.",
+            "reasoning_profile": "deep",
+            "workstreams": [
+              {"id": "research", "objective": "Evaluate evidence and uncertainty."},
+              {"id": "implementation", "objective": "Design and validate an implementation."},
+              {"id": "delivery", "objective": "Prepare user-facing delivery artifacts."}
+            ],
+            "deliverables": [
+              "deliverables/report.md",
+              "deliverables/evidence.json",
+              "deliverables/matrix.csv",
+              "deliverables/summary.html"
+            ]
+          }
+          JSON
+          python -m pocket_agent.mission_cli plan \
+            --request artifacts/multi-task-missions-v2/request.json \
+            --principal ci-operator \
+            --tenant ci-tenant \
+            > artifacts/multi-task-missions-v2/plan.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          plan = json.loads(Path('artifacts/multi-task-missions-v2/plan.json').read_text())
+          tasks = plan['tasks']
+          ids = [item['task_id'] for item in tasks]
+          assert len(ids) == len(set(ids))
+          assert len(tasks) > 40
+          assert plan['reasoning_profile']['revision_cycles'] == 2
+          assert plan['max_parallel'] == 5
+          assert any(item['kind'] == 'package' for item in tasks)
+          known = set(ids)
+          assert all(set(item['depends_on']).issubset(known) for item in tasks)
+          print(f"compiled {len(tasks)} tasks")
+          PY
+
+      - name: Verify no fake binary artifacts
+        run: |
+          python - <<'PY'
+          from pocket_agent.mission_profiles import DeliverableContract
+          try:
+              DeliverableContract('deliverables/fake.pdf')
+          except ValueError as exc:
+              assert 'registered renderer' in str(exc)
+          else:
+              raise SystemExit('PDF contract unexpectedly accepted without renderer')
+          print('binary artifact boundary: PASS')
+          PY
+
+      - name: Generate source evidence receipt
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          paths = [
+              'src/pocket_agent/mission_profiles.py',
+              'src/pocket_agent/mission_renderers.py',
+              'src/pocket_agent/mission_program.py',
+              'src/pocket_agent/mission_worker.py',
+              'src/pocket_agent/mission_cli.py',
+              'tests/test_mission_program_v2.py',
+              'docs/MULTI_TASK_MISSIONS_V2.md',
+          ]
+          payload = {
+              'schema': 'pocket.mission-program.source-evidence.v2',
+              'evidence_class': 'E3-validated-output',
+              'files': {
+                  path: hashlib.sha256(Path(path).read_bytes()).hexdigest()
+                  for path in paths
+              },
+              'validated': [
+                  'multiple workstreams',
+                  'parallel dependency graph',
+                  'reasoning profiles',
+                  'repeated review and revision',
+                  'tenant-bound durable mission creation',
+                  'long-running worker heartbeat',
+                  'artifact rendering and packaging',
+                  'binary renderer fail-closed boundary',
+              ],
+              'claim_boundary': (
+                  'This artifact proves source compilation and deterministic tests. '
+                  'It does not prove a continuously supervised production worker, '
+                  'a live AURO endpoint, exact-checkpoint reasoning quality, semantic '
+                  'artifact correctness, production deployment, or external custody.'
+              ),
+          }
+          payload['receipt_sha256'] = hashlib.sha256(
+              json.dumps(payload, sort_keys=True, separators=(',', ':')).encode()
+          ).hexdigest()
+          destination = Path('artifacts/multi-task-missions-v2/source-evidence.json')
+          destination.write_text(json.dumps(payload, indent=2, sort_keys=True) + '\n')
+          print(json.dumps(payload, indent=2, sort_keys=True))
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: multi-task-missions-v2-evidence
+          path: artifacts/multi-task-missions-v2
+          if-no-files-found: error

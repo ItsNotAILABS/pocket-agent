@@ -1,0 +1,145 @@
+name: POCKET Agent Multi-Task Mission Gate
+
+on:
+  pull_request:
+    paths:
+      - 'src/pocket_agent/mission_*.py'
+      - 'tests/test_missions.py'
+      - 'docs/MULTI_TASK_MISSIONS_V1.md'
+      - 'ecosystem.surface.json'
+      - 'pyproject.toml'
+      - '.github/workflows/multi-task-missions.yml'
+  push:
+    branches: [master]
+    paths:
+      - 'src/pocket_agent/mission_*.py'
+      - 'tests/test_missions.py'
+      - 'docs/MULTI_TASK_MISSIONS_V1.md'
+      - 'ecosystem.surface.json'
+      - 'pyproject.toml'
+      - '.github/workflows/multi-task-missions.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  mission-gate:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.12']
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install focused dependencies
+        run: |
+          python -m pip install --disable-pip-version-check --upgrade pip
+          python -m pip install --disable-pip-version-check pytest
+          python -m pip install -e .
+
+      - name: Compile mission subsystem
+        run: |
+          python -m py_compile \
+            src/pocket_agent/mission_artifacts.py \
+            src/pocket_agent/mission_store.py \
+            src/pocket_agent/mission_orchestrator.py \
+            src/pocket_agent/mission_executors.py \
+            src/pocket_agent/mission_service.py \
+            src/pocket_agent/mission_worker.py \
+            src/pocket_agent/mission_cli.py
+
+      - name: Run focused mission tests
+        run: python -m pytest -q tests/test_missions.py
+
+      - name: Verify package and operator commands
+        run: |
+          python - <<'PY'
+          import json
+          import pocket_agent
+          from pocket_agent import MissionPlanner, MissionStore, ArtifactStore
+
+          assert pocket_agent.__version__ == '0.4.0'
+          plan = MissionPlanner().plan(
+              'Research, implement, review, and package a deliverable',
+              principal_id='ci',
+              tenant_id='ci',
+          )
+          assert len(plan['tasks']) == 7
+          assert len({task['task_id'] for task in plan['tasks']}) == 7
+          assert all(task['task_id'].startswith(plan['mission_id'] + '__') for task in plan['tasks'])
+          surface = json.load(open('ecosystem.surface.json', encoding='utf-8'))
+          assert 'mission.create' in surface['actions']
+          assert surface['mission_contract']['state_store'] == 'SQLite/WAL'
+          assert surface['limits']['private_reasoning_export'] is False
+          print('mission package smoke: PASS')
+          PY
+          pocket-mission --help
+          pocket-mission-worker --help
+
+      - name: Generate source evidence receipt
+        run: |
+          mkdir -p artifacts/mission-gate
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          paths = [
+              'src/pocket_agent/mission_artifacts.py',
+              'src/pocket_agent/mission_store.py',
+              'src/pocket_agent/mission_orchestrator.py',
+              'src/pocket_agent/mission_executors.py',
+              'src/pocket_agent/mission_service.py',
+              'src/pocket_agent/mission_worker.py',
+              'src/pocket_agent/mission_cli.py',
+              'tests/test_missions.py',
+              'docs/MULTI_TASK_MISSIONS_V1.md',
+              'ecosystem.surface.json',
+          ]
+          files = {
+              path: hashlib.sha256(Path(path).read_bytes()).hexdigest()
+              for path in paths
+          }
+          payload = {
+              'schema': 'pocket.mission.source-evidence.v1',
+              'evidence_class': 'E3-validated-output',
+              'python': '${{ matrix.python-version }}',
+              'files': files,
+              'validated': [
+                  'mission-scoped task identities',
+                  'dependency DAG and cycle rejection',
+                  'parallelism enforced in SQLite',
+                  'leases and recovery',
+                  'tenant and principal isolation',
+                  'bounded AURO reasoning passes',
+                  'runtime-cell one-time approval',
+                  'artifact manifests and ZIP bundles',
+                  'unsupported binary formats fail closed',
+              ],
+              'claim_boundary': (
+                  'This receipt proves deterministic source tests only. It does not prove '
+                  'production deployment, unattended work without a worker, external tool '
+                  'effects, AURO checkpoint quality, semantic correctness, or E5 custody.'
+              ),
+          }
+          payload['receipt_sha256'] = hashlib.sha256(
+              json.dumps(payload, sort_keys=True, separators=(',', ':')).encode()
+          ).hexdigest()
+          Path('artifacts/mission-gate/source-evidence.json').write_text(
+              json.dumps(payload, indent=2, sort_keys=True) + '\n',
+              encoding='utf-8',
+          )
+          print(json.dumps(payload, indent=2, sort_keys=True))
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pocket-agent-mission-evidence-py${{ matrix.python-version }}
+          path: artifacts/mission-gate
+          if-no-files-found: error

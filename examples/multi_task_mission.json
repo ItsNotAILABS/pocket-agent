@@ -1,0 +1,85 @@
+{
+  "title": "Release a customer-ready AURO product",
+  "objective": "Complete the runtime, product, evidence, and launch work as one durable integrated mission.",
+  "reasoning_profile": "deep",
+  "max_parallel": 5,
+  "budget": {
+    "max_tasks": 500,
+    "max_task_attempts": 1500,
+    "max_runtime_seconds": 28800
+  },
+  "workstreams": [
+    {
+      "id": "runtime",
+      "title": "Production runtime",
+      "objective": "Implement the production runtime, validate failure behavior, and produce API evidence.",
+      "priority": 5,
+      "acceptance_criteria": [
+        "runtime imports from a clean environment",
+        "missing dependencies fail closed",
+        "authenticated API smoke evidence exists",
+        "remaining production blockers are explicit"
+      ]
+    },
+    {
+      "id": "product",
+      "title": "Customer product",
+      "objective": "Prepare the installable application, account flow, documentation, and customer onboarding.",
+      "priority": 4,
+      "acceptance_criteria": [
+        "customer journey is documented",
+        "installation and rollback are defined",
+        "multi-user boundaries are explicit"
+      ]
+    },
+    {
+      "id": "evidence",
+      "title": "Evidence and release governance",
+      "objective": "Create the claim-to-evidence matrix, regression plan, release gate, and operator checklist.",
+      "priority": 4,
+      "acceptance_criteria": [
+        "every release claim has an evidence class",
+        "unknown results remain blockers",
+        "promotion and rollback authority are explicit"
+      ]
+    },
+    {
+      "id": "launch",
+      "title": "Launch delivery",
+      "objective": "Prepare the market-facing summary, release notes, pricing assumptions, and launch sequence.",
+      "priority": 3,
+      "acceptance_criteria": [
+        "launch material agrees with verified product capability",
+        "unsupported benchmark claims are absent",
+        "release sequence is actionable"
+      ]
+    }
+  ],
+  "deliverables": [
+    {
+      "path": "deliverables/release-report.md",
+      "title": "Release Report",
+      "minimum_bytes": 500,
+      "acceptance_criteria": [
+        "all four workstreams are represented",
+        "blockers and residual risks are explicit",
+        "next actions are ordered"
+      ]
+    },
+    {
+      "path": "deliverables/evidence-index.json",
+      "title": "Evidence Index",
+      "minimum_bytes": 100
+    },
+    {
+      "path": "deliverables/release-matrix.csv",
+      "title": "Release Matrix",
+      "minimum_bytes": 50
+    },
+    {
+      "path": "deliverables/customer-summary.html",
+      "title": "Customer Summary",
+      "minimum_bytes": 200
+    }
+  ]
+}
