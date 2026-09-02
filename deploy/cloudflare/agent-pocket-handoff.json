@@ -1,0 +1,30 @@
+{
+  "schema": "pocket.agent_cloud_handoff.v1",
+  "surface": "Agent Pocket",
+  "canonical_beta_url": "https://beta.pocketnova.app/agents/",
+  "repo": "https://github.com/ItsNotAILABS/pocket-agent",
+  "routes": [
+    { "host": "beta.pocketnova.app", "path": "/agents/*", "surface": "agent console and task API" },
+    { "host": "beta.pocketnova.app", "path": "/sdk/pocket-agent-client.js", "surface": "browser SDK" }
+  ],
+  "web_entrypoint": "web/agent-pocket-console/index.html",
+  "sdk_entrypoint": "sdk/pocket-agent-client.js",
+  "api_contracts": [
+    { "method": "POST", "path": "/agents/tasks", "purpose": "agent task packet intake" },
+    { "method": "POST", "path": "/agents/production-claims", "purpose": "receipt-backed production claim" },
+    { "method": "POST", "path": "/agents/data-exports", "purpose": "operator-approved data export request" },
+    { "method": "POST", "path": "/agents/payment-executions", "purpose": "operator-approved provider payment packet" },
+    { "method": "POST", "path": "/agents/wallet-executions", "purpose": "operator-approved provider wallet packet" }
+  ],
+  "required_operator_rules": [
+    "Restricted actions require operator_approval=true.",
+    "Production claims require deploy_target and verification_evidence.",
+    "Payment and wallet executions require provider_ref and must not contain raw card data, CVV/CVC, private keys, seed phrases, or raw secrets.",
+    "All agent work must return an artifact or receipt."
+  ],
+  "deployment_prompt_for_claude_or_cloud": "Deploy Agent Pocket under https://beta.pocketnova.app/agents/. Mount web/agent-pocket-console/index.html as the console, expose sdk/pocket-agent-client.js, and route agent tasks, production claims, data exports, payments, and wallet actions through explicit operator approval and receipt creation. Do not infer execution state from chat text.",
+  "validation": {
+    "command": "python scripts/validate_agent_pocket_handoff.py",
+    "receipt": "dist/agent-pocket-handoff/validation-receipt.json"
+  }
+}
