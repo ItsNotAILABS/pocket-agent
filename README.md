@@ -3,6 +3,10 @@
 </p>
 
 <p align="center">
+  <img src="assets/host-desk.jpg" width="100%" alt="POCKET host desk — the machine POCKET Agent works on"/>
+</p>
+
+<p align="center">
   <a href="https://github.com/ItsNotAILABS/pocket-agent"><img alt="version" src="https://img.shields.io/badge/version-0.3.0-10b981?style=flat-square"></a>
   <a href="LICENSE"><img alt="license" src="https://img.shields.io/badge/license-MIT-3b82f6?style=flat-square"></a>
   <img alt="python" src="https://img.shields.io/badge/python-3.11+-f59e0b?style=flat-square">
