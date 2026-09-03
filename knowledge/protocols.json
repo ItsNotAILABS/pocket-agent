@@ -12,7 +12,14 @@
     "host-os",
     "hz-mesh",
     "rah",
-    "economy"
+    "economy",
+    "screen-kernel",
+    "stream",
+    "screen-body",
+    "device-pair",
+    "origin",
+    "runtime",
+    "agent-arch"
   ],
   "economic": [
     "pock-ledger",
@@ -28,6 +35,10 @@
     "catalog": "GET /v1/protocols",
     "status": "GET /v1/protocols/status",
     "rah": "GET /v1/protocols/rah",
+    "screen_family": "GET /v1/protocols/screen-family",
+    "stream": "GET /v1/protocols/stream",
+    "device_pair": "GET /v1/protocols/device-pair",
+    "origin": "GET /v1/protocols/origin",
     "economy": "GET /v1/economy/protocols"
   }
 }
