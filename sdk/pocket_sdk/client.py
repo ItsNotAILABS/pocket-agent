@@ -118,8 +118,66 @@ class Pocket:
     def rah_run(self, task: str, **kw: Any) -> Any:
         return self.post("/v1/rah/run", {"task": task, **kw})
 
+    # --- agents toolkit · engines · mail (host internal API) ---
+    def agents_tools(self) -> Any:
+        return self.get("/v1/agents/tools")
+
+    def engine_uses(self) -> Any:
+        return self.get("/v1/engine-uses")
+
+    def engine_use(self, use_id: str = "", prompt: str = "", **kw: Any) -> Any:
+        body: Dict[str, Any] = {"prompt": prompt, **kw}
+        if use_id:
+            body["use"] = use_id
+        elif prompt:
+            body["goal"] = prompt
+        return self.post("/v1/engine-uses", body)
+
+    def skill(self, skill: str, prompt: str = "", params: Optional[Dict[str, Any]] = None) -> Any:
+        return self.post("/v1/skills/run", {"skill": skill, "prompt": prompt, "params": params or {}})
+
+    def python_engine(self, engine: str, prompt: str = "", **kw: Any) -> Any:
+        return self.post("/v1/python-engine", {"engine": engine, "prompt": prompt, **kw})
+
+    def mail_inbox(self, agent: str = "assist") -> Any:
+        return self.get(f"/v1/agent-mail/inbox?agent={agent}")
+
+    def mail_send(self, *, to: str, subject: str = "", body: str = "", from_agent: str = "scribe") -> Any:
+        return self.post(
+            "/v1/agent-mail/send",
+            {"from": from_agent, "to": to, "subject": subject, "body": body},
+        )
+
+    def genetic_run(self, goal: str, **kw: Any) -> Any:
+        return self.post("/v1/genetic/run", {"goal": goal, **kw})
+
+    def model_build(self, **kw: Any) -> Any:
+        return self.post("/v1/models/build", kw)
+
     def rah_score(self, task: str, mode: str = "plan") -> Any:
         return self.post("/v1/rah/score", {"task": task, "mode": mode})
+
+    def screen_kernel(self) -> Any:
+        return self.get("/v1/screen/kernel")
+
+    def embody(self, agent: str = "coder", *, which: str = "desktop") -> Any:
+        return self.post("/v1/screen/embody", {"agent": agent, "which": which})
+
+    def screen_see(self, which: str = "desktop") -> Any:
+        return self.post("/v1/screen/see", {"which": which})
+
+    def screen_touch(self, kind: str = "tap", *, nx: float = 0.5, ny: float = 0.5, **kw: Any) -> Any:
+        body = {"kind": kind, "nx": nx, "ny": ny, **kw}
+        return self.post("/v1/screen/touch", body)
+
+    def screen_type(self, text: str, *, nx: float = 0.5, ny: float = 0.5, submit: bool = False) -> Any:
+        return self.post("/v1/screen/type", {"text": text, "nx": nx, "ny": ny, "submit": submit})
+
+    def screen_click(self, name: str) -> Any:
+        return self.post("/v1/screen/click", {"name": name})
+
+    def screen_body(self, verb: str = "see", **kw: Any) -> Any:
+        return self.post("/v1/screen/body", {"verb": verb, **kw})
 
     # --- capsules ---
     def capsule_reasons(self) -> Any:

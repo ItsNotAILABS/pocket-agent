@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pocket-agent"
-version = "0.2.0"
-description = "POCKET Agent — long-running RLM + continual harness + recursive agent harnesses + WASM capsules"
+version = "0.3.0"
+description = "POCKET Agent — long-running RLM + continual harness + RAH + WASM capsules; embodies the live Pocket screen"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }

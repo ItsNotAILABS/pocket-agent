@@ -14,6 +14,16 @@
     "protocols": "GET /v1/protocols",
     "rah_run": "POST /v1/rah/run",
     "economy": "GET /v1/economy",
-    "ai_chat": "POST /v1/ai/chat"
+    "ai_chat": "POST /v1/ai/chat",
+    "foundations": "GET /v1/foundations",
+    "internal_models": "GET /v1/internal-models",
+    "imagine": "GET /v1/imagine",
+    "imagine_compose": "POST /v1/imagine/compose",
+    "novae": "GET /v1/novae",
+    "login": "POST /v1/auth/login",
+    "register": "POST /v1/auth/register",
+    "bots": "GET /v1/bots",
+    "bots_hire": "POST /v1/bots/hire",
+    "bots_message": "POST /v1/bots/{id}/message"
   }
 }

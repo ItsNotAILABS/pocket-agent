@@ -24,6 +24,18 @@
     {"id": "list_agents", "desc": "First-class desk/phone agents", "tags": ["agents"]},
     {"id": "habitat_status", "desc": "Habitat residents", "tags": ["habitat"]},
     {"id": "loomgraph_run", "desc": "Run loomgraph campaign", "tags": ["orch"]},
-    {"id": "list_skills", "desc": "List skill catalog", "tags": ["discover"]}
+    {"id": "list_skills", "desc": "List skill catalog", "tags": ["discover"]},
+    {"id": "foundations_map", "desc": "Internal AI + math + self + world catalog", "tags": ["models", "math", "internal"]},
+    {"id": "imagine_compose", "desc": "Compose Rotato/MacBook still from host screen", "tags": ["imagine", "studio"]},
+    {"id": "imagine_status", "desc": "Imagine Studio status", "tags": ["imagine"]},
+    {"id": "novae_list", "desc": "List Grok Novae + Codex Novae", "tags": ["novae"]},
+    {"id": "novae_activate", "desc": "Seat Novae hands in POCKET workspace", "tags": ["novae"]},
+    {"id": "bots_list", "desc": "List POCKET Bots teammates", "tags": ["bots"]},
+    {"id": "bots_hire", "desc": "Hire a Pocket bot from a job description", "tags": ["bots"]},
+    {"id": "bots_message", "desc": "Message a Pocket bot like a colleague", "tags": ["bots"]},
+    {"id": "screen_embody", "desc": "Agent inhabits the live PC (see/touch/type)", "tags": ["screen", "body"]},
+    {"id": "screen_see", "desc": "See the desktop / TV / Anti frame", "tags": ["screen"]},
+    {"id": "screen_touch", "desc": "Tap the live pointer at nx,ny", "tags": ["screen"]},
+    {"id": "screen_type", "desc": "Type into the selected field", "tags": ["screen"]}
   ]
 }

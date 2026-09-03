@@ -34,6 +34,15 @@ Catalog: `install/slices.json`
 4. Auth → login, store token
 5. Work → sessions/messages, skills/run, rah/run, capsule_allocate, economy/*
 
+## Internal AI foundations
+
+Computational AI and **math** run **inside POCKET**. Do not route proofs, hashes, world memory, or identity to OpenAI/Anthropic/Gemini.
+
+- Catalog: `GET /v1/foundations` · skill `foundations_map`
+- Models: Ghost Math · Logic · Pattern · Identity · World · Auro · Guppy · Heuristic
+- Optional seats (not foundations): Codex / Grok / Claude host CLIs
+- Knowledge file: `knowledge/foundations.json`
+
 ## Key APIs
 
 | Area | Endpoints |
@@ -58,4 +67,4 @@ Not a security sandbox by default. Prefer capsules for untrusted code. Never pas
 
 ## Surfaces
 
-Desk `/desk` · Phone `/phone` · Studio · Work · Economy rail · Developers API
+Desk `/desk` · Phone `/phone` · Studio · **Imagine** `/imagine` · Novae · Work · Economy · Developers API · Sign in `/login` · Sign up `/signup`

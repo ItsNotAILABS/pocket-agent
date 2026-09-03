@@ -1,0 +1,25 @@
+{
+  "schema": "pocket.knowledge.foundations.v1",
+  "doctrine": "Computational AI and math in POCKET are INTERNAL. No OpenAI/Anthropic/Gemini/CAS required. Codex/Grok/Claude are optional host seats.",
+  "host": {
+    "catalog": "GET /v1/foundations",
+    "internal_models": "GET /v1/internal-models",
+    "express": "POST /v1/internal-models/express",
+    "genetic": "POST /v1/genetic/run",
+    "skill": "foundations_map"
+  },
+  "families": {
+    "math": ["ghost", "logic", "pattern"],
+    "self": ["identity", "heuristic"],
+    "intelligence": ["world", "auro", "guppy"],
+    "compute": ["genetic_flow", "novae", "imagine"]
+  },
+  "third_party_required": false,
+  "surfaces": {
+    "login": "/login",
+    "signup": "/signup",
+    "imagine": "/imagine",
+    "novae": "/v1/novae",
+    "desk": "/desk"
+  }
+}

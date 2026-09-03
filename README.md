@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/ItsNotAILABS/pocket-agent"><img alt="version" src="https://img.shields.io/badge/version-0.2.0-10b981?style=flat-square"></a>
+  <a href="https://github.com/ItsNotAILABS/pocket-agent"><img alt="version" src="https://img.shields.io/badge/version-0.3.0-10b981?style=flat-square"></a>
   <a href="LICENSE"><img alt="license" src="https://img.shields.io/badge/license-MIT-3b82f6?style=flat-square"></a>
   <img alt="python" src="https://img.shields.io/badge/python-3.11+-f59e0b?style=flat-square">
   <img alt="status" src="https://img.shields.io/badge/status-public%20alpha-8b5cf6?style=flat-square">
@@ -81,9 +81,23 @@ Live host hub (when serve is up): **http://127.0.0.1:8787/install**
 
 | Repo | Role |
 |------|------|
-| [pocket](https://github.com/ItsNotAILABS/pocket) | Host · desk · phone · genetic · mail · MCP |
-| [pocket-agent](https://github.com/ItsNotAILABS/pocket-agent) | This CLI + install slices |
+| [pocket](https://github.com/ItsNotAILABS/pocket) | Host · desk · phone · screen body · mail · MCP · agents toolkit |
+| [pocket-agent](https://github.com/ItsNotAILABS/pocket-agent) | This CLI + install slices + Python SDK · **embodies the live PC** |
+| [vlaptop](https://github.com/ItsNotAILABS/vlaptop) | SCREEN-KERNEL/1.1 client — see / touch / type / embody |
+| [PhoneAI](https://github.com/ItsNotAILABS/PhoneAI) | PhoneAI Kernel™ — phone seat on the operator PC |
+
 | [pocket-voice-to-text](https://github.com/ItsNotAILABS/pocket-voice-to-text) | Sovereign voice STT/TTS/agents |
+| **pocket-phone-agent** | Separate agentic phone app (`:8795`) · internal SDK → host API · all 20 uses |
+
+Internal AI (host): `GET /v1/foundations` — math, self-models, world, Auro. No third-party inference required. Imagine Studio: `/imagine`. Public seats: `/login` · `/signup`.
+
+```powershell
+# Phone agent (needs host on :8787)
+cd ..\pocket-phone-agent
+$env:POCKET_URL = "http://127.0.0.1:8787"
+python app.py
+# http://127.0.0.1:8795/
+```
 
 ---
 
@@ -178,6 +192,17 @@ pocket-agent capsule reasons              # list the 20 capsule reasons
 pocket-agent capsule spin --reason <id>   # create an isolated runspace
 pocket-agent update [--force]             # update installation
 pocket-agent shutdown [--force]           # controlled shutdown
+```
+
+Wear the live Pocket screen (host `:8787` must be up):
+
+```python
+from pocket_sdk import Pocket
+pc = Pocket()
+pc.embody("pocket-agent")
+pc.screen_see()
+pc.screen_touch("tap", nx=0.4, ny=0.3)
+pc.screen_type("hello from the agent", submit=True)
 ```
 
 In-session commands:

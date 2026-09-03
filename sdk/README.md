@@ -18,7 +18,16 @@ sid = p.create_session(mode="plan", title="sdk")
 print(p.send_message(sid, "Who are you?"))
 print(p.economy())
 print(p.rah_plan("Audit every API endpoint for missing auth"))
-print(p.capsule_reasons())
+print(p.agents_tools())       # full MCP tools + 20 uses manifest
+print(p.engine_uses())
+print(p.engine_use(prompt="research multi-agent hosts"))
+print(p.mail_inbox("assist"))
+print(p.genetic_run("hash and plan"))
+print(p.model_build(kind="formula", formula="x*phi", model_id="user-roi"))
+p.embody("sdk")
+p.screen_see()
 ```
+
+Also see the **Phone Agent app** (`pocket-phone-agent`) — separate agentic phone on port **8795** using a dedicated internal SDK against the same host API.
 
 Env: `POCKET_URL`, `POCKET_TOKEN`, `POCKET_USER`, `POCKET_PASSWORD`.

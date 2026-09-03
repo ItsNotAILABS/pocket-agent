@@ -50,6 +50,16 @@ class Agent:
                 meta={"mode": "repl", "error": str(e)},
             )
 
+    def embody_screen(self, which: str = "desktop") -> Dict[str, Any]:
+        """Wear the live Pocket desktop — see/touch/type through SCREEN-KERNEL."""
+        try:
+            from pocket_sdk.client import Pocket
+
+            host = Pocket()
+            return host.embody(agent="pocket-agent", which=which)
+        except Exception as e:
+            return {"ok": False, "error": str(e)[:200]}
+
     def _run_task(self, task: str) -> RunResult:
         # Prefer POCKET host executor (includes auto-RAH)
         try:
